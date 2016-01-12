@@ -235,6 +235,7 @@ namespace Durak
             rul.win1 = false;
             button1.Enabled = false;
             button2.Enabled = false;
+            rul.hodpc=false;
             rul.poisk_kart_for_hod_igrok();
             label1.Text = "Козырь";
             string filename1 = Application.StartupPath;
