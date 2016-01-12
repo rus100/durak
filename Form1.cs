@@ -38,6 +38,7 @@ namespace Durak
                         rul.razdacha();
                         anim_kart();
                         rul.hodpc = true;
+                        rul.win();
                     }
                     rul.poisk_kart_for_hod_pc();
 
@@ -61,6 +62,7 @@ namespace Durak
                         rul.razdacha();
                         anim_kart();
                         rul.hodpc = false;
+                        rul.win();
                     }
                     rul.poisk_kart_for_hod_igrok();
                 }
@@ -96,6 +98,7 @@ namespace Durak
                     rul.karti_pc.Remove(rul.vozmojnye_karti_pc[k]);
                     anim_kart();
                     rul.poisk_kart_for_hod_igrok();
+                    rul.win();
                 }
                 else
                 {
@@ -107,6 +110,7 @@ namespace Durak
                     rul.razdacha();
                     anim_kart();
                     rul.hodpc = false;
+                    rul.win();
                 }
                 rul.poisk_kart_for_hod_igrok();
             }
@@ -206,10 +210,17 @@ namespace Durak
                         Image bmp = Image.FromFile(fn);
                         pn.BackgroundImage = bmp;
                         pn.MouseDoubleClick += pn_MouseDoubleClick;
+                        pn.MouseCaptureChanged += pn_MouseCaptureChanged;
                         pictureBox1.Controls.Add(pn);
                     }
                 }
             }
+        }
+        private void pn_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            rul.poisk_kart_for_hod_igrok();
+            karti_nelzya();
+        
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -337,8 +348,6 @@ namespace Durak
                 {
                     if (sootvet[j].Contains(minkozir + " "))
                     {
-                        
-                        
                         string fn = sootvet[j].Substring(minkozir.Length);
                         Image bmp = Image.FromFile(fn);
                         pictureBox2.Controls[i].BackgroundImage = bmp;
@@ -359,8 +368,6 @@ namespace Durak
                 }
                
             }
-
-
                     for (int j = 0; j < 36; j++)
                     {
                         if (sootvet[j].Contains(rul.d + " "))
@@ -403,8 +410,20 @@ namespace Durak
                         }
                     }
                 }
+        void karti_nelzya() {
+
+            for (int i = 0; i < rul.karti_igrok.Count; i++) {
+                if (rul.vozmojnye_karti_igrok.Contains(rul.karti_igrok[i]))
+                {
+                    pictureBox1.Controls[i].Enabled = true;
+
+                }
+                else { pictureBox1.Controls[i].Enabled = false ; }
             
+            }
         
+        
+        }
         private void pn_MouseDoubleClick(object sender, MouseEventArgs e) //не изменять
         {
             
@@ -412,10 +431,12 @@ namespace Durak
                 if (bolshe6 == false)
                 {
                     nomer = pictureBox1.Controls.GetChildIndex((Control)sender);
+
                     rul.poisk_kart_for_hod_igrok();
                     if (rul.hodpc == false)
                     {
                         rul.poisk_kart_for_hod_igrok();
+                       
                         if (rul.vozmojnye_karti_igrok.Count > 0)
                         {     
                             if (rul.vozmojnye_karti_igrok.Contains(rul.karti_igrok[nomer]))
@@ -426,11 +447,7 @@ namespace Durak
                                 anim_pole();
                                 anim_kart();
                             }
-                            else
-                            {
-                                MessageBox.Show("Нельзя");
-                                goto metka;
-                            }
+                           
                         }
                         else
                         {
@@ -455,7 +472,7 @@ namespace Durak
                             otbilsya_pc = true;
                             button1.Enabled = false;
                             button2.Enabled = true;
-                           
+                            rul.win();
                         }
                         else
                         {
@@ -464,14 +481,15 @@ namespace Durak
                             if (log.nevzyat == false) {
                                 rul.karti_pc.AddRange(rul.pole);
                                 rul.pole.Clear();
-                            
+                                
                             }
                             anim_pole();
                             rul.razdacha();
                             anim_kart();
                             rul.hodpc = false;
                             button1.Enabled = false;
-                            button2.Enabled = false;
+                            button2.Enabled = false;   
+                           rul.win();
                         }
                     }
                     else
@@ -480,6 +498,7 @@ namespace Durak
                         button2.Enabled = false;
                         rul.poisk_kart_for_hod_igrok();
                         //nomer=pictureBox1.Controls.GetChildIndex((Control)sender);
+                        
                         if (rul.vozmojnye_karti_igrok.Count > 0)
                         {
                             if (rul.vozmojnye_karti_igrok.Contains(rul.karti_igrok[nomer]))
@@ -488,12 +507,9 @@ namespace Durak
                                 anim_pole();
                                 rul.karti_igrok.RemoveAt(nomer);
                                 anim_kart();
+                                rul.win();
                             }
-                            else
-                            {
-                                MessageBox.Show("Нельзя");
-                                goto metka;
-                            }
+                        
                         }
                         else
                         {
@@ -505,6 +521,7 @@ namespace Durak
                             rul.hodpc = true;
                             button1.Enabled = false;
                             button2.Enabled = false;
+                            rul.win();
                         }
                         rul.poisk_kart_for_hod_pc();
                         // neotbilsya_igrok = true;
@@ -517,6 +534,7 @@ namespace Durak
                             rul.karti_pc.Remove(rul.vozmojnye_karti_pc[k]);
                             anim_kart();
                             rul.poisk_kart_for_hod_igrok();
+                          
                             button1.Enabled = true;
                             button2.Enabled = false;
                         }
@@ -535,7 +553,7 @@ namespace Durak
                         }
                         rul.poisk_kart_for_hod_igrok();
                     }
-                metka: ;
+               
                 }
                 label2.Text = "Карт в колоде" + " " + rul.kolodi.Count.ToString(); }
             if (rul.kolodi.Count == 0)
@@ -549,8 +567,8 @@ namespace Durak
         bool bolshe6 = false;
         private void pictureBox3_ControlAdded(object sender, ControlEventArgs e)
         {
-           
 
+           
             if (rul.hodpc == false)
             {
                 if (rul.pole.Count < 12)
@@ -575,32 +593,21 @@ namespace Durak
                 neotbilsya_igrok = true;
                 if (rul.vozmojnye_karti_pc.Count > 0)
                 {
+                    
                     c = k;
                     rul.tekych_card = rul.vozmojnye_karti_pc[k];
+                   
                 }
             }
             else
             {
+              
                 button1.Enabled = false;
                 button2.Enabled = false;
             }
+            
         }
-        private void pictureBox3_ControlRemoved(object sender, ControlEventArgs e)
-        {
-            rul.win();
-            if (rul.win1 == false)
-            { 
-                }
-            else
-            {  
-                rul.karti_igrok.Clear();
-                rul.karti_pc.Clear();
-                rul.pole.Clear();
-                anim_kart();
-                anim_pole();
-            }
-           
-        }
+       
 
         private void easyToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -626,8 +633,12 @@ namespace Durak
         {
             MessageBox.Show("Автор игры инженер-электрик Ахметов Р.Р.");
         }
+
+       
+
         
        
     }
 }
+
 
