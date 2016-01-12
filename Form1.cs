@@ -210,13 +210,13 @@ namespace Durak
                         Image bmp = Image.FromFile(fn);
                         pn.BackgroundImage = bmp;
                         pn.MouseDoubleClick += pn_MouseDoubleClick;
-                        pn.MouseCaptureChanged += pn_MouseCaptureChanged;
+                        pn.MouseEnter += pn_MouseEnter;
                         pictureBox1.Controls.Add(pn);
                     }
                 }
             }
         }
-        private void pn_MouseCaptureChanged(object sender, EventArgs e)
+        private void pn_MouseEnter(object sender, EventArgs e)
         {
             rul.poisk_kart_for_hod_igrok();
             karti_nelzya();
@@ -640,5 +640,3 @@ namespace Durak
        
     }
 }
-
-
