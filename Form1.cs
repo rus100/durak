@@ -220,7 +220,7 @@ namespace Durak
         {
             rul.poisk_kart_for_hod_igrok();
             karti_nelzya();
-        
+           
         }
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -228,6 +228,7 @@ namespace Durak
             rul.kolodi.Clear();
             rul.karti_pc.Clear();
             rul.karti_igrok.Clear();
+            rul.pole.Clear();
             pictureBox1.Controls.Clear();
             pictureBox2.Controls.Clear();
             pictureBox3.Controls.Clear();
@@ -235,7 +236,7 @@ namespace Durak
             rul.win1 = false;
             button1.Enabled = false;
             button2.Enabled = false;
-            rul.hodpc=false;
+            rul.hodpc = false;
             rul.poisk_kart_for_hod_igrok();
             label1.Text = "Козырь";
             string filename1 = Application.StartupPath;
@@ -411,7 +412,11 @@ namespace Durak
                         }
                     }
                 }
-        void karti_nelzya() {
+        
+        
+        
+            
+    void karti_nelzya() {
 
             for (int i = 0; i < rul.karti_igrok.Count; i++) {
                 if (rul.vozmojnye_karti_igrok.Contains(rul.karti_igrok[i]))
@@ -419,12 +424,9 @@ namespace Durak
                     pictureBox1.Controls[i].Enabled = true;
 
                 }
-                else { pictureBox1.Controls[i].Enabled = false ; }
+                else { pictureBox1.Controls[i].Enabled = false ; }  }  }
             
-            }
-        
-        
-        }
+           
         private void pn_MouseDoubleClick(object sender, MouseEventArgs e) //не изменять
         {
             
