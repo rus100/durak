@@ -337,7 +337,7 @@ namespace Durak
                         k = kolodi.Count;
                         if (hodpc == false)
                         {
-                            if (6 - c < k)
+                            if (6 - c <= k)
                             {
                                 if (karti_igrok.Count < 6)
                                 {
@@ -351,17 +351,19 @@ namespace Durak
                             else
                             {
                                 k = kolodi.Count;
-                                if (karti_igrok.Count < 6)
+                                
+                                    if (karti_igrok.Count < 6)
                                 {
-                                    for (int i = 0; i <= k; i++)
+                                    for (int i = 0; i < k; i++)
                                     {
                                         karti_igrok.Add(kolodi[i]);
                                         kolodi.RemoveAt(i);
                                     }
-                                }
+                                } 
+                                
                             }
                             k = kolodi.Count;
-                            if (6 - d < k)
+                            if (6 - d <= k)
                             {
                                 if (karti_pc.Count < 6)
                                 {
@@ -376,22 +378,24 @@ namespace Durak
                             else
                             {
                                 k = kolodi.Count;
-                                if (karti_pc.Count < 6)
+                             
+                                    if (karti_pc.Count < 6)
                                 {
-                                    for (int i = 0; i <= k; i++)
+                                    for (int i = 0; i < k; i++)
                                     {
                                         karti_pc.Add(kolodi[i]);
                                         kolodi.RemoveAt(i);
 
                                     }
-                                }
+                                } 
+                                
                             }
 
                         }
                         if (hodpc == true)
                         {
                             k = kolodi.Count;
-                            if (6 - d < k)
+                            if (6 - d <= k)
                             {
                                 if (karti_pc.Count < 6)
                                 {
@@ -407,7 +411,7 @@ namespace Durak
                                 k = kolodi.Count;
                                 if (karti_pc.Count < 6)
                                 {
-                                    for (int i = 0; i <= k; i++)
+                                    for (int i = 0; i < k; i++)
                                     {
                                         karti_pc.Add(kolodi[i]);
 
@@ -417,7 +421,7 @@ namespace Durak
                                 }
                             }
                             k = kolodi.Count;
-                            if (6 - c < k)
+                            if (6 - c <= k)
                             {
                                 if (karti_igrok.Count < 6)
                                 {
@@ -425,8 +429,6 @@ namespace Durak
                                     {
                                         karti_igrok.Add(kolodi[i]);
                                         kolodi.RemoveAt(i);
-
-
                                     }
                                 }
                             }
@@ -435,13 +437,10 @@ namespace Durak
                                 k = kolodi.Count;
                                 if (karti_igrok.Count < 6)
                                 {
-                                    for (int i = 0; i <= k; i++)
+                                    for (int i = 0; i < k; i++)
                                     {
                                         karti_igrok.Add(kolodi[i]);
-
                                         kolodi.RemoveAt(i);
-
-
                                     }
                                 }
                             }
@@ -553,21 +552,25 @@ namespace Durak
                     if ((karti_igrok.Count == 0) && (karti_pc.Count > 0))
                     {
                        MessageBox.Show("Игрок выиграл");
+                       hodpc = false;
                         win1 = true;
-                        hodpc = false;
+                       
                     }
                     if ((karti_igrok.Count > 0) && (karti_pc.Count == 0))
                     {
                         MessageBox.Show("Компьютер выиграл");
-                        win1 = true;
                         hodpc = true;
+                        win1 = true;
+                        MessageBox.Show("На дурака ходят");
+                        
                     }
                     //ничью дописать
                     if ((karti_igrok.Count == 0) && (karti_pc.Count == 0))
                     {
                         MessageBox.Show("Ничья");
-                        win1 = true;
                         hodpc = false;
+                        win1 = true;
+                        
                     }
                 }
     }
