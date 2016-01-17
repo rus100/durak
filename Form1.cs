@@ -23,6 +23,7 @@ namespace Durak
         int k = 0;
         int c;
         int nomer;
+        bool perviy_hod_pc;
         private void button1_Click(object sender, EventArgs e)//БЕРУ
         {
             if (rul.win1 != true)
@@ -38,7 +39,7 @@ namespace Durak
                         rul.razdacha();
                         anim_kart();
                         rul.hodpc = true;
-                        rul.win();
+                       
                     }
                     rul.poisk_kart_for_hod_pc();
 
@@ -51,6 +52,7 @@ namespace Durak
                         rul.karti_pc.Remove(rul.vozmojnye_karti_pc[k]);
                         anim_kart();
                         rul.poisk_kart_for_hod_igrok();
+                        if (perviy_hod_pc == false) { rul.win(); }
                     }
                     else
                     {
@@ -62,7 +64,7 @@ namespace Durak
                         rul.razdacha();
                         anim_kart();
                         rul.hodpc = false;
-                        rul.win();
+                        if (perviy_hod_pc == false) { rul.win(); }
                     }
                     rul.poisk_kart_for_hod_igrok();
                 }
@@ -98,7 +100,7 @@ namespace Durak
                     rul.karti_pc.Remove(rul.vozmojnye_karti_pc[k]);
                     anim_kart();
                     rul.poisk_kart_for_hod_igrok();
-                    rul.win();
+                    if (perviy_hod_pc == false) { rul.win(); } 
                 }
                 else
                 {
@@ -110,7 +112,7 @@ namespace Durak
                     rul.razdacha();
                     anim_kart();
                     rul.hodpc = false;
-                    rul.win();
+                    if (perviy_hod_pc == false) { rul.win(); }
                 }
                 rul.poisk_kart_for_hod_igrok();
             }
@@ -222,8 +224,10 @@ namespace Durak
             karti_nelzya();
            
         }
+        int kolvozapusk = 0;
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            kolvozapusk++;
             rul.nachalo_igri = true;
             rul.kolodi.Clear();
             rul.karti_pc.Clear();
@@ -236,7 +240,7 @@ namespace Durak
             rul.win1 = false;
             button1.Enabled = false;
             button2.Enabled = false;
-            rul.hodpc = false;
+           
             rul.poisk_kart_for_hod_igrok();
             label1.Text = "Козырь";
             string filename1 = Application.StartupPath;
@@ -274,24 +278,20 @@ namespace Durak
                 if (rul.karti_igrok[i][rul.karti_igrok[i].Length - 1].ToString() == rul.kozir)
                 {
                     kolvokozirigrok++;
-
                 }
                 if (rul.karti_pc[i][rul.karti_pc[i].Length - 1].ToString() == rul.kozir)
                 {
                     kolvokozirpc++;
-
                 }
-
             }
-            if ((kolvokozirigrok == 0))
+            if (kolvozapusk == 1) {
+                if ((kolvokozirigrok == 0))
             {
                 rul.hodpc = false;
-
             }
             if ((kolvokozirpc == 0) && (kolvokozirigrok > 0))
             {
                 rul.hodpc = true;
-
             }
             int minkozirpc = 100;
             int minkozirigrok = 100;
@@ -304,12 +304,8 @@ namespace Durak
                     if (minkozirpc <= log.cennost_kart_pc[i])
                     {
                         minkozirpc = log.cennost_kart_pc[i];
-
                     }
                 }
-
-
-
                 for (int i = 0; i < log.cennost_kart_igrok.Count; i++)
                 {
                     if (minkozirigrok <= log.cennost_kart_igrok[i])
@@ -370,6 +366,16 @@ namespace Durak
                 }
                
             }
+
+           
+ }    
+            if (rul.hodpc == false)
+            {
+                perviy_hod_pc = false;
+            }
+            else {
+                perviy_hod_pc = true;
+            }
                     for (int j = 0; j < 36; j++)
                     {
                         if (sootvet[j].Contains(rul.d + " "))
@@ -412,10 +418,6 @@ namespace Durak
                         }
                     }
                 }
-        
-        
-        
-            
     void karti_nelzya() {
 
             for (int i = 0; i < rul.karti_igrok.Count; i++) {
@@ -449,6 +451,7 @@ namespace Durak
                                 rul.karti_igrok.RemoveAt(nomer);
                                 anim_pole();
                                 anim_kart();
+                                if (perviy_hod_pc == true) { rul.win(); }
                             }
                            
                         }
@@ -462,6 +465,7 @@ namespace Durak
                             rul.razdacha();
                             anim_kart();
                             rul.hodpc = true;
+                            if (perviy_hod_pc == true) { rul.win(); }
                         }
                         rul.poisk_kart_for_hod_pc();
                         if (level == 1) {k = log.nomer_karti(rul); }
@@ -475,7 +479,7 @@ namespace Durak
                             otbilsya_pc = true;
                             button1.Enabled = false;
                             button2.Enabled = true;
-                            rul.win();
+                           if (perviy_hod_pc == false) { rul.win(); }
                         }
                         else
                         {
@@ -491,8 +495,9 @@ namespace Durak
                             anim_kart();
                             rul.hodpc = false;
                             button1.Enabled = false;
-                            button2.Enabled = false;   
-                           rul.win();
+                            button2.Enabled = false;
+                            if (perviy_hod_pc == false) {rul.win(); }
+                           
                         }
                     }
                     else
@@ -510,7 +515,7 @@ namespace Durak
                                 anim_pole();
                                 rul.karti_igrok.RemoveAt(nomer);
                                 anim_kart();
-                                rul.win();
+                                if (perviy_hod_pc == false) { rul.win(); } 
                             }
                         
                         }
@@ -524,7 +529,7 @@ namespace Durak
                             rul.hodpc = true;
                             button1.Enabled = false;
                             button2.Enabled = false;
-                            rul.win();
+                            if (perviy_hod_pc == false) { rul.win(); }
                         }
                         rul.poisk_kart_for_hod_pc();
                         // neotbilsya_igrok = true;
@@ -540,6 +545,7 @@ namespace Durak
                           
                             button1.Enabled = true;
                             button2.Enabled = false;
+                            if (perviy_hod_pc == true) { rul.win(); }
                         }
                         else
                         {
@@ -553,6 +559,7 @@ namespace Durak
                             rul.hodpc = false;
                             button1.Enabled = false;
                             button2.Enabled = false;
+                            if (perviy_hod_pc == true) { rul.win(); }
                         }
                         rul.poisk_kart_for_hod_igrok();
                     }
